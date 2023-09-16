@@ -1,4 +1,10 @@
 {
+  "name": "vokraf-server",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npx nodemon app.js",
+    "reset": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
