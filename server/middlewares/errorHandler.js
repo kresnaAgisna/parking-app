@@ -17,7 +17,7 @@ const errorHandler = async(error, req, res, next) => {
         case 'JsonWebTokenError':
             status = 401;
             message = 'Invalid Token'
-        case 'ContactNotFound':
+        case 'SlotNotFound':
             status = 404;
             message = error.message
         case 'Unauthorized':
