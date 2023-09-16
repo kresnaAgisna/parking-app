@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Slot.belongsToMany(models.Place, {foreignKey: "PlaceId"})
-      Slot.belongsToMany(models.User, {foreignKey: "UserId"})
+      Slot.belongsTo(models.Place, {foreignKey: "PlaceId"})
+      Slot.belongsTo(models.User, {foreignKey: "UserId"})
     }
   }
   Slot.init({
