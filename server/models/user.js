@@ -81,9 +81,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         isIn: {
           args: [["admin", "customer"]],
-          msg: {
-            msg: "Server doesnt recognize your input for Role field"
-          }
+          msg: "Server doesnt recognize your input for Role field"
         }
       }
     }

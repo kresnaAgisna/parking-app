@@ -16,6 +16,7 @@ class UserController {
 
     static async loginUser(req, res, next) {
         const { email, password } = req.body
+        console.log(email, password)
         try {
             if(!email || !password) {
                 throw({name: 'InvalidEmailPassword', message: 'Invalid Email/Password'})
