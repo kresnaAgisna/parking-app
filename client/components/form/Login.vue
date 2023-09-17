@@ -30,6 +30,7 @@
     const login = async() => {
         try {
             await userStore.handleLogin(form)
+            navigateTo('home')
         } catch (error) {
             console.log(error)
         }

@@ -37,7 +37,7 @@ export const useUserStore = defineStore('user', () => {
     const handleLogout = () => {
         localStorage.clear()
         user.value = {}
-        access_token = localStorage.access_token
+        access_token.value = localStorage.access_token
     }
     return { user, access_token, handleLogin, handleRegister, handleLogout}
 })
