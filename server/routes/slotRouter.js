@@ -3,9 +3,9 @@ const router = express.Router()
 const SlotController = require('../controllers/slotController')
 
 
-router.get(SlotController.getAll)
-router.post(SlotController.bookSlot)
-router.patch(SlotController.updateSlot)
+router.get("/", SlotController.getAll)
+router.post("/",SlotController.bookSlot)
+router.patch("/",SlotController.updateSlot)
 
 
 module.exports = router

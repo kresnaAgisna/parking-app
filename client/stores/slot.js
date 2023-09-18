@@ -7,6 +7,7 @@ export const useSlotStore = defineStore('slot', () => {
     const section = ref('')
     const PlaceId = ref(null)
     const booked = ref([])
+    const histories = ref([])
 
     const changeDate = async(input) => {
         try {
@@ -23,6 +24,20 @@ export const useSlotStore = defineStore('slot', () => {
             if(code && id) {
                 await bookedSlot()
             }
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    const bookingHistory = async() => {
+        try {
+            const response = await $fetch('http://localhost:4000/slot', {
+                headers: {
+                    access_token: localStorage.access_token
+                }
+            })
+
+            histories.value = response
         } catch (error) {
             throw(error)
         }
@@ -72,11 +87,11 @@ export const useSlotStore = defineStore('slot', () => {
                 }
             })
 
-           console.log(response)
+           await bookedSlot()
         } catch (error) {
             throw(error.data)
         }
     }
 
-    return { section, formattedDate, booked, changeDate, changeSection, bookParkingSpot }
+    return { section, formattedDate, booked, histories, changeDate, changeSection, bookParkingSpot, bookingHistory }
 })

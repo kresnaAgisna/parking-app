@@ -16,13 +16,12 @@ class UserController {
 
     static async loginUser(req, res, next) {
         const { email, password } = req.body
-        console.log(email, password)
         try {
             if(!email || !password) {
                 throw({name: 'InvalidEmailPassword', message: 'Invalid Email/Password'})
             }
             const user = await User.findOne({where: {email}})
-
+            
             if(!user || !comparePassword(password, user.password)) {
                 throw({name: 'InvalidEmailPassword', message: 'Invalid Email/Password'})
             }

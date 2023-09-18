@@ -25,6 +25,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
+      start: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      end: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
       PlaceId: {
         type: Sequelize.INTEGER,
         allowNull: false,

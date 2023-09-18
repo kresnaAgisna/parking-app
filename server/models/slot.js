@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Status is required"
         },
         isIn : {
-          args: [["booked", "confirmed", "paid"]],
+          args: [["booked", "confirmed", "paid", "canceled"]],
           msg: "Server doesnt recognize your input for status field"
         }
       }
@@ -74,6 +74,12 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Total must not be less than 15000"
         }
       }
+    },
+    start: {
+      type: DataTypes.INTEGER,
+    },
+    end: {
+      type: DataTypes.INTEGER
     },
     UserId: {
       type: DataTypes.INTEGER,

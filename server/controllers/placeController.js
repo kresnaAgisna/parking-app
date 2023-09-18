@@ -2,9 +2,14 @@ const { Place, Slot } = require('../models/index')
 
 class PlaceController {
     static async getAll(req, res, next) {
+        const { place } = req.query
         try {
             const places = await Place.findAll({
-                include: [Slot]
+                where : {
+                    name: place
+                },
+                include: [Slot],
+                order: ['section']
             })
 
             res.status(200).json(places)

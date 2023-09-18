@@ -5,7 +5,7 @@
         <div class="h-[40vh] w-full flex flex-col drop-shadow-md border border-info rounded-md bg-white overflow-hidden relative">
             <div class="flex h-[15%] w-full border border-b-info gap-5 px-5">
                 <div class="flex items-center w-1/3 h-full">
-                    <button :disabled="!slotStore.section" @click="slotStore.changeSection(null)">
+                    <button :disabled="!slotStore.section" @click="handleBack">
                         <BootstrapIcon name="arrow-left-square-fill" class="text-3xl text-info"/>
                     </button>
                 </div>
@@ -18,7 +18,7 @@
                     <BootstrapIcon name="arrow-right-square-fill text-3xl text-info" @click="slotStore.changeDate(-1)"/>
                 </div>
             </div>
-            <div class="flex justify-center items-center w-full h-[85%] p-5 text-2xl font-bold text-info" v-if="!placeStore.places.value">
+            <div class="flex justify-center items-center w-full h-[85%] p-5 text-2xl font-bold text-info" v-if="!placeStore.places">
                     Choose your destination first
             </div>
             <div class="flex flex-col items-center w-full h-[85%] p-5 overflow-hidden gap-8" name="circle" v-else-if="!slotStore.section">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else class="flex flex-col items-center w-full h-[85%] p-5 overflow-hidden">
+            <div v-else-if="placeStore.places && slotStore.section" class="flex flex-col items-center w-full h-[85%] p-5 overflow-hidden">
                 <div class="w-full h-full flex flex-wrap gap-5 relative">
                     <div v-for="(el, index) in array" key="index" @click="pickDate(index + 9)"
                         :class="`${ changeColor(index + 9) || otherDateColor(index + 9) ?  ' bg-info ' : ' bg-blue-950 '}
@@ -52,11 +52,17 @@
     const selectedRange = ref([])
     const title = ref('')
     const array = new Array(14).fill(null)
-
+    
+    const handleBack = async() => {
+        selectedRange.value = []
+        await slotStore.changeSection(null)
+    }
     const changeDestination = async(value) => {
         if(value === title.value) return
         try {
             await placeStore.fetchAllPlace(value)
+            await slotStore.changeSection(null)
+            selectedRange.value = []
             title.value = value
         } catch (error) {   
             console.log(error)
@@ -102,6 +108,10 @@
     const book = async() => {
         try {
             await slotStore.bookParkingSpot(selectedRange.value)
+            selectedRange.value = []
+            placeStore.emptyPlaces()
+            await slotStore.changeSection()
+            navigateTo('/history')
         } catch (error) {
             console.log(error)
         }

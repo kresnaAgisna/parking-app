@@ -16,6 +16,9 @@ export const usePlaceStore = defineStore('place', () => {
         }
     }
 
+    const emptyPlaces = () => {
+        places.value = []
+    }
 
-    return { places, fetchAllPlace}
+    return { places, fetchAllPlace, emptyPlaces}
 })
